@@ -1,0 +1,55 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Dancing Script', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://s12.gifyu.com/images/SD4ft.gif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.content-box {
+    background: rgb(60, 60, 60, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    width: 80%; /* Aumentei a largura do retângulo */
+    max-height: 50%; /* Mantive a altura mais baixa */
+}
+
+.gif {
+    width: 30%; /* Ajustei o GIF para ocupar 30% da nova largura */
+    margin-right: 20px;
+    border-radius: 5px;
+}
+
+.details {
+    flex-grow: 1;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 2em;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
