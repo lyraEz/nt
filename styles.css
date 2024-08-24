@@ -14,8 +14,8 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200%;
-    height: 200%;
+    width: 300%;
+    height: 300%;
 }
 
 .content-box {
@@ -29,9 +29,9 @@ body, html {
 }
 
 .gif {
-    width: 180px;
-    height: 180px;
-    border-radius: 90%;
+    width: 120px;
+    height: 120px;
+    border-radius: 190%;
     margin-right: 60px;
 }
 
