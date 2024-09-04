@@ -39,7 +39,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: auto; /* Largura ajustada automaticamente */
     max-width: 600px; /* Largura máxima para não exceder o tamanho */
     color: #ff5678; /* Cor ajustada para o texto */
     font-family: 'Dancing Script', cursive;
@@ -149,11 +148,17 @@ body, html {
     margin-left: 20px; /* Espaçamento entre as caixas */
 }
 
+.secondary-box .header {
+    font-size: 1.5em; /* Tamanho do nome */
+    margin-bottom: 10px; /* Espaçamento abaixo do nome */
+}
+
 .secondary-box .box-content {
     display: flex;
     gap: 20px; /* Espaçamento entre a foto e as informações */
     align-items: flex-start;
     margin-bottom: 20px; /* Espaçamento abaixo do conteúdo da caixa */
+    width: 100%; /* Garante que o conteúdo utilize a largura disponível */
 }
 
 .secondary-box .box-content img {
