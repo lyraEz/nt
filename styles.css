@@ -10,6 +10,17 @@
     }
 }
 
+@keyframes unfoldUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -24,8 +35,12 @@
     animation: unfold 1s ease-out forwards;
 }
 
+.curriculum {
+    animation: unfoldUp 1s ease-out forwards;
+}
+
 .social-icons {
-    animation: fadeIn 2s ease-out 1s forwards;
+    animation: fadeIn 1s ease-out 2s forwards; /* Ajustado para aparecer após 2 segundos */
 }
 
 /* Estilizações adicionais */
@@ -57,29 +72,44 @@ body, html {
     flex-direction: column;
     align-items: center;
     max-width: 750px;
-    color: white;
+    color: #ff5678; /* Cor ajustada para o texto */
     font-family: 'Dancing Script', cursive;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .gif {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    margin-bottom: 20px;
 }
 
-h2 {
-    margin: 0;
-    font-size: 2em;
-    color: #ff5678;
-}
-
-ul {
+.info ul {
     list-style: none;
     padding: 0;
-    margin: 10px 0 0 0;
+    margin: 0;
     font-size: 1.2em;
     color: #b0bec5;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: #ff5678; /* Cor dos ícones ajustada */
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.social-icons a:hover {
+    color: #ff8a80; /* Cor dos ícones ao passar o mouse */
 }
 
 .curriculum {
@@ -96,21 +126,5 @@ ul {
 .curriculum h3 {
     margin: 0;
     font-size: 1.5em;
-    color: #ff5678;
-}
-
-.social-icons {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-}
-
-.social-icons a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5em;
-}
-
-.social-icons a:hover {
     color: #ff5678;
 }
