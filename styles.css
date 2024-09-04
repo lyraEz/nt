@@ -28,6 +28,7 @@
         opacity: 1;
     }
 }
+/*toma no rabo depois de anos isso decide funcionar*/
 
 .content-box {
     animation: unfold 1s ease-out forwards;
