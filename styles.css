@@ -1,3 +1,34 @@
+/* Definindo as animações */
+@keyframes unfold {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Aplicando as animações */
+.content-box {
+    animation: unfold 1s ease-out forwards;
+}
+
+.social-icons {
+    animation: fadeIn 2s ease-out 1s forwards;
+}
+
+/* Estilizações adicionais */
 body, html {
     margin: 0;
     padding: 0;
@@ -21,37 +52,65 @@ body, html {
 .content-box {
     background-color: rgba(0, 0, 0, 0.7);
     padding: 40px;
-    border-radius: 10px;
+    border-radius: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     max-width: 750px;
     color: white;
+    font-family: 'Dancing Script', cursive;
 }
 
 .gif {
     width: 90px;
     height: 90px;
-    border-radius: 190%;
-    margin-right: 60px;
-}
-
-.details {
-    display: flex;
-    flex-direction: column;
+    border-radius: 50%;
+    margin-bottom: 20px;
 }
 
 h2 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 2em;
     color: #ff5678;
-    font-family: 'Dancing Script', cursive;
 }
 
 ul {
     list-style: none;
     padding: 0;
     margin: 10px 0 0 0;
-    font-size: 1em;
+    font-size: 1.2em;
     color: #b0bec5;
+}
+
+.curriculum {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
     font-family: 'Dancing Script', cursive;
+}
+
+.curriculum h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #ff5678;
+}
+
+.social-icons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.social-icons a:hover {
+    color: #ff5678;
 }
