@@ -33,17 +33,48 @@
 /* Aplicando as animações */
 .content-box {
     animation: unfold 1s ease-out forwards;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto; /* Largura ajustada automaticamente */
+    max-width: 600px; /* Largura máxima para não exceder o tamanho */
+    color: #ff5678; /* Cor ajustada para o texto */
+    font-family: 'Dancing Script', cursive;
 }
 
 .curriculum {
     animation: unfoldUp 1s ease-out forwards;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+    font-family: 'Dancing Script', cursive;
 }
 
 .social-icons {
     animation: fadeIn 1s ease-out 2s forwards; /* Ajustado para aparecer após 2 segundos */
+    opacity: 0; /* Inicialmente invisível */
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
 }
 
-/* Estilizações adicionais */
+.social-icons a {
+    color: #ff5678; /* Cor dos ícones ajustada */
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.social-icons a:hover {
+    color: #ff8a80; /* Cor dos ícones ao passar o mouse */
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -64,27 +95,16 @@ body, html {
     height: 100%;
 }
 
-.content-box {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 40px;
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 750px;
-    color: #ff5678; /* Cor ajustada para o texto */
-    font-family: 'Dancing Script', cursive;
-}
-
 .profile-info {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 20px; /* Aumentado para dar mais espaço */
+    flex-wrap: wrap; /* Adicionado para melhorar o layout responsivo */
 }
 
 .gif {
-    width: 90px;
-    height: 90px;
+    width: 100px; /* Ajustado para melhor visibilidade */
+    height: 100px; /* Ajustado para melhor visibilidade */
     border-radius: 50%;
 }
 
@@ -96,31 +116,15 @@ body, html {
     color: #b0bec5;
 }
 
-.social-icons {
-    margin-top: 20px;
-    display: flex;
-    gap: 15px;
-}
-
-.social-icons a {
-    color: #ff5678; /* Cor dos ícones ajustada */
-    text-decoration: none;
-    font-size: 1.5em;
-}
-
-.social-icons a:hover {
-    color: #ff8a80; /* Cor dos ícones ao passar o mouse */
-}
-
-.curriculum {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
+.content-box {
+    max-width: 600px; /* Ajustado para largura máxima */
+    padding: 30px; /* Ajustado para adicionar espaçamento interno */
     border-radius: 20px;
-    color: white;
-    font-family: 'Dancing Script', cursive;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espaçamento interno adicionado */
 }
 
 .curriculum h3 {
