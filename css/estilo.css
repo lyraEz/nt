@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar{
+    display: flex;
+    flex-flow: row wrap;
+    height: 100px;
+    background: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    flex:20%;
+    margin-left: 10%;
+    /*border:1px solid black;*/
+    text-align: left;
+}
+
+.logo h1{
+    font-family: "Outfit", cursive;
+    color: black;
+    font-size:30px;
+}
+
+.menu{
+    flex: 70%;
+    /*border:1px solid black;*/
+    text-align: right;
+    padding: 20px;
+}
+
+.menu a{
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+    padding: 20px 16px;
+}
+
+.menu a:hover{
+    color: deeppink;
+    border-top: 4px solid black;
+}
+
+#botao{
+    background: black;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 7px;
+    margin-right: 10%;
+    margin-left: 5%;
+}
+
+#botao:hover{
+    border:none;
+    background: deeppink;
+}
+
+.header{
+    display: flex;
+    flex-flow: row wrap;
+    height: 600px;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.headline{
+    margin-left: 10%;
+    flex: 40%;
+    /*border: 1px solid black;*/
+}
+
+.headline p{
+    color: black;
+    text-align: left;
+}
+
+.contact-btn{
+    display: inline-block;
+    background: black;
+    padding: 20px;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.contact-btn:hover{
+    background: deeppink;
+}
+
+.headline h2{
+    font-weight: 900;
+    font-size: 20px;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+.img-headline{
+    margin-right: 10%;
+    flex: 40%;
+    /*border: 1px solid black;*/
+    text-align: center;
+}
+
+section{
+    display: inline-block;
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 5%;
+    text-align: center;
+    width: 90%;
+}
+
+section h2{
+    width: 100%;
+    font-size: 50px;
+    margin: 0;
+    font-family: "Outfit", cursive;
+    font-weight: bold;
+    color: black;
+}
+
+.equipe{
+    display: inline-block;
+    margin-top: 5%;
+}
+
+.card{
+    display: inline-block;
+    width: 10%;
+    padding: 20px;
+    margin:0.3%;
+    border: 1px solid black;
+}
+
+footer{
+    margin-top: 100px;
+    height: 400px;
+    background-image: linear-gradient(180deg,white,black);
+    text-align: center;
+    border-top: 5px solid black;
+}
+
+.logo-rodape{
+    padding: 100px;
+}
+
+.agencia{
+    font-family: "Outfit", cursive;
+    color: black;
+    font-size:30px
+}
