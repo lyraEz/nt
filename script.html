@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Script Details - lyraEz</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo fade-right">
+          <h1 class="shimmer">lyraEz</h1>
+          <p>Universal Script Collection</p>
+        </a>
+        
+        <div class="social-links fade-left">
+          <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.1s;">
+            <i class="fas fa-link"></i>
+          </a>
+          <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.2s;">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://github.com/lyraEz" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.3s;">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.roblox.com/pt/users/4604351765/profile" target="_blank" rel="noopener noreferrer" class="social-icon animate-float" style="animation-delay: 0.4s;">
+            <i class="fas fa-gamepad"></i>
+          </a>
+          <a href="https://scriptblox.com/u/chead" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.5s;">
+            <i class="fas fa-code"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container script-detail-container fade-in">
+    <div class="back-button-container">
+      <a href="index.html" class="back-button button-pop fade-left">
+        <i class="fas fa-arrow-left"></i>
+        Back to Scripts
+      </a>
+    </div>
+
+    <div class="script-details-header">
+      <div class="script-meta fade-right">
+        <span class="script-category badge"></span>
+        <span class="script-views">
+          <i class="far fa-eye"></i> <span id="views-count"></span> views
+        </span>
+        <span class="script-time">
+          <i class="far fa-clock"></i> <span id="time-ago"></span>
+        </span>
+      </div>
+      
+      <h1 id="script-title" class="shimmer fade-down"></h1>
+      <p id="script-description" class="fade-up"></p>
+    </div>
+    
+    <div class="script-content-grid">
+      <div class="script-details-column fade-right">
+        <div class="script-info-card">
+          <h2 class="shimmer">Note</h2>
+          <p>
+            Feel free to use and tweak the scripts however you want, no need to credit me, it’s all chill.
+          </p>
+          <p>Category: <span id="category-name" class="highlight"></span></p>
+          <p id="wallhop-note" class="note" style="display: none;">I won’t be updating this script anymore. 
+            I won’t be sharing this script’s source code.
+          </p>
+          
+          <div class="code-toggle">
+            <button id="toggle-code-btn" class="button-pop shimmer">
+              Show Code
+              <i class="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div id="code-container" class="code-container" style="display: none;">
+          <div class="code-header">
+            <span>Script Code</span>
+            <button id="copy-code-btn" class="button-pop">
+              Copy Code
+            </button>
+          </div>
+          
+          <div class="code-display">
+            <pre><code id="script-code" class="language-lua"></code></pre>
+          </div>
+        </div>
+      </div>
+      
+      <div class="script-sidebar fade-left" style="animation-delay: 0.2s;">
+        <div class="script-sidebar-card">
+          <img id="script-image" alt="Script Preview" class="script-image">
+          
+          <div class="script-sidebar-content">
+            <div class="script-price-section">
+              <span id="script-price" class="script-price shimmer"></span>
+              <span class="universal-badge badge">Universal</span>
+            </div>
+            
+            <button id="mobile-copy-code-btn" class="copy-button button-pop">
+              <i class="fas fa-copy"></i>
+              Copy Script
+            </button>
+            
+            <div class="share-section">
+              <h3>Share</h3>
+              <div class="share-buttons">
+                <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer" class="share-button">
+                  <i class="fab fa-discord"></i>
+                </a>
+                <a href="https://github.com/lyraEz" target="_blank" rel="noopener noreferrer" class="share-button">
+                  <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.roblox.com/pt/users/4604351765/profile" target="_blank" rel="noopener noreferrer" class="share-button">
+                  <i class="fas fa-gamepad animate-float"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="related-scripts-section fade-up" style="animation-delay: 0.3s;">
+      <h2 class="shimmer">You May Also Like</h2>
+      <div class="related-scripts-grid">
+        <!-- geracao automatica dos scripts -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col fade-up">
+          <a href="index.html">
+            <h3 class="shimmer">lyraEz</h3>
+          </a>
+          <p>Collection of high-quality, open-source scripts for all your needs</p>
+          <div class="footer-social">
+            <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-link"></i>
+            </a>
+            <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-discord"></i>
+            </a>
+            <a href="https://github.com/lyraEz" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.roblox.com/pt/users/4604351765/profile" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-gamepad animate-float"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col fade-right" style="animation-delay: 0.1s;">
+          <h4>Links</h4>
+          <ul>
+            <li>
+              <a href="https://scriptblox.com/u/chead" target="_blank" rel="noopener noreferrer">
+                ScriptBlox
+              </a>
+            </li>
+            <li>
+              <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer">
+                guns.lol
+              </a>
+            </li>
+            <li>
+              <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer">
+                Discord Server
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="footer-col fade-left" style="animation-delay: 0.2s;">
+          <h4>Scripts</h4>
+          <ul>
+            <li>
+              <a href="script.html?id=script1">
+                Auto Jump
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script2">
+                HDR GRAPHICS
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script3">
+                Korblox R6
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script4">
+                Wallhop
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom fade-up" style="animation-delay: 0.3s;">
+        <p>&copy; <span id="current-year"></span> lyraEz. All scripts are provided free.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
+  <script src="data.js"></script>
+  <script src="script-detail.js"></script>
+</body>
+</html>

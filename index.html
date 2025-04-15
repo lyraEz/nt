@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lyraEz - Script Collection</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo fade-right">
+          <h1 class="shimmer">lyraEz</h1>
+          <p>Universal Script Collection</p>
+        </a>
+        
+        <div class="social-links fade-left">
+          <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.1s;">
+            <i class="fas fa-link"></i>
+          </a>
+          <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.2s;">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://github.com/lyraEz" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.3s;">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.roblox.com/pt/users/4604351765/profile" target="_blank" rel="noopener noreferrer" class="social-icon animate-float" style="animation-delay: 0.4s;">
+            <i class="fas fa-gamepad"></i>
+          </a>
+          <a href="https://scriptblox.com/u/chead" target="_blank" rel="noopener noreferrer" class="social-icon" style="animation-delay: 0.5s;">
+            <i class="fas fa-code"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container fade-in">
+    <section class="hero">
+      <h2 class="section-title fade-up">Scripts Collection</h2>
+      <div class="category-filter fade-up" style="animation-delay: 0.1s;">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="Universal">Universal</button>
+        <button class="filter-btn" data-category="Specific">Specific</button>
+        <button class="filter-btn" data-category="Graphics">Graphics</button>
+        <button class="filter-btn" data-category="Utility">Utility</button>
+      </div>
+    </section>
+
+    <section class="scripts-grid">
+      <!-- Scripts will be dynamically generated here -->
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col fade-up">
+          <a href="index.html">
+            <h3 class="shimmer">lyraEz</h3>
+          </a>
+          <p>Collection of high-quality, open-source scripts for all your needs</p>
+          <div class="footer-social">
+            <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-link"></i>
+            </a>
+            <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-discord"></i>
+            </a>
+            <a href="https://github.com/lyraEz" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.roblox.com/pt/users/4604351765/profile" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-gamepad animate-float"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col fade-right" style="animation-delay: 0.1s;">
+          <h4>Links</h4>
+          <ul>
+            <li>
+              <a href="https://scriptblox.com/u/chead" target="_blank" rel="noopener noreferrer">
+                ScriptBlox
+              </a>
+            </li>
+            <li>
+              <a href="https://guns.lol/lyraEz" target="_blank" rel="noopener noreferrer">
+                guns.lol
+              </a>
+            </li>
+            <li>
+              <a href="https://discord.gg/FA3eVAdtfw" target="_blank" rel="noopener noreferrer">
+                Discord Server
+              </a>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="footer-col fade-left" style="animation-delay: 0.2s;">
+          <h4>Scripts</h4>
+          <ul>
+            <li>
+              <a href="script.html?id=script1">
+                Auto Jump
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script2">
+                HDR GRAPHICS
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script3">
+                Korblox R6
+              </a>
+            </li>
+            <li>
+              <a href="script.html?id=script4">
+                Wallhop
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom fade-up" style="animation-delay: 0.3s;">
+        <p>&copy; <span id="current-year"></span> lyraEz. All scripts are provided free of charge for educational purposes.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-lua.min.js"></script>
+  <script src="data.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
