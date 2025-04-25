@@ -4,7 +4,496 @@ const scripts = [
     title: "Auto Jump",
     description: "Automatically jumps when near obstacles to maintain movement flow",
     category: "Utility",
-    code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/lyraEz/lol/refs/heads/main/loaders/AJ.lua"))()`,
+    code: `local autoJump = false
+local keybind = "F"
+local floatingButton = nil  -- Armazena o botão flutuante (se criado)
+
+-- GUI Setup
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+-- Criação do ScreenGui no início
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AutoJumpHub"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Main Hub Frame (aumentado)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 220, 0, 170)
+mainFrame.Position = UDim2.new(0.5, -110, 0.1, 0)
+mainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+local hubCorner = Instance.new("UICorner")
+hubCorner.CornerRadius = UDim.new(0, 10)
+hubCorner.Parent = mainFrame
+
+-- Title Bar (tema mais escuro)
+local titleBar = Instance.new("Frame")
+titleBar.Size = UDim2.new(1, 0, 0, 30)
+titleBar.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+titleBar.BorderSizePixel = 0
+titleBar.Parent = mainFrame
+
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 10)
+titleCorner.Parent = titleBar
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(0.7, 0, 1, 0)
+title.Position = UDim2.new(0, 10, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Auto Jump"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 18
+title.Font = Enum.Font.GothamBold
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = titleBar
+
+-- Botão de minimizar
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Size = UDim2.new(0, 30, 0, 30)
+minimizeButton.Position = UDim2.new(1, -30, 0, 0)
+minimizeButton.BackgroundTransparency = 1
+minimizeButton.Text = "-"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.TextSize = 24
+minimizeButton.Font = Enum.Font.GothamBold
+minimizeButton.Parent = titleBar
+
+-- Botão Status (tema mais escuro)
+local statusButton = Instance.new("TextButton")
+local statusGradient = Instance.new("UIGradient")
+statusGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 80, 80))
+})
+statusGradient.Parent = statusButton
+statusButton.Size = UDim2.new(0, 200, 0, 25)
+statusButton.Position = UDim2.new(0, 10, 0, 35)
+statusButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+statusButton.Text = "Auto Jump OFF"
+statusButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+statusButton.TextSize = 14
+statusButton.Font = Enum.Font.GothamSemibold
+statusButton.Parent = mainFrame
+local statusCorner = Instance.new("UICorner")
+statusCorner.CornerRadius = UDim.new(0, 6)
+statusCorner.Parent = statusButton
+
+-- Lógica do Auto Jump (depois de criar os elementos da UI)
+local function toggleAutoJump()
+    print("toggleAutoJump chamado - estado atual:", autoJump)  -- Debug
+    autoJump = not autoJump
+    print("Novo estado do autoJump:", autoJump)  -- Debug
+
+    -- Atualizando o botão de status
+    statusButton.Text = autoJump and "Auto Jump ON" or "Auto Jump OFF"
+    statusGradient.Color = autoJump and
+        ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 100)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 200, 100))
+        }) or
+        ColorSequence.new({
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 0, 0)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 80, 80))
+        })
+
+    -- Atualizando o botão flutuante
+    if floatingButton then
+        print("Atualizando botão flutuante")  -- Debug
+        floatingButton.Text = autoJump and "Auto Jump ON" or "Auto Jump OFF"
+        local fbGradient = floatingButton:FindFirstChildOfClass("UIGradient")
+        if fbGradient then
+            fbGradient.Color = autoJump and
+                ColorSequence.new({
+                    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 100)),
+                    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 200, 100))
+                }) or
+                ColorSequence.new({
+                    ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 0, 0)),
+                    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 80, 80))
+                })
+        end
+    end
+end
+
+-- Botão Keybind (tema mais escuro)
+local keybindButton = Instance.new("TextButton")
+keybindButton.Size = UDim2.new(0, 200, 0, 25)
+keybindButton.Position = UDim2.new(0, 10, 0, 70)
+keybindButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+keybindButton.Text = "KEYBIND: " .. keybind
+keybindButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+keybindButton.TextSize = 14
+keybindButton.Font = Enum.Font.GothamSemibold
+keybindButton.Parent = mainFrame
+local keybindGradient = Instance.new("UIGradient")
+keybindGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 180)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 80, 230))
+})
+keybindGradient.Parent = keybindButton
+local keybindCorner = Instance.new("UICorner")
+keybindCorner.CornerRadius = UDim.new(0, 6)
+keybindCorner.Parent = keybindButton
+
+-- Botão Floating Button (para criar o botão flutuante)
+local floatingButtonCreator = Instance.new("TextButton")
+floatingButtonCreator.Size = UDim2.new(0, 200, 0, 25)
+floatingButtonCreator.Position = UDim2.new(0, 10, 0, 105)
+floatingButtonCreator.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+floatingButtonCreator.Text = "Floating Button"
+floatingButtonCreator.TextColor3 = Color3.fromRGB(255, 255, 255)
+floatingButtonCreator.TextSize = 14
+floatingButtonCreator.Font = Enum.Font.GothamSemibold
+floatingButtonCreator.Parent = mainFrame
+
+local floatingGradient = Instance.new("UIGradient")
+floatingGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(50, 50, 180)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(80, 80, 230))
+})
+floatingGradient.Parent = floatingButtonCreator
+local floatingCorner = Instance.new("UICorner")
+floatingCorner.CornerRadius = UDim.new(0, 6)
+floatingCorner.Parent = floatingButtonCreator
+
+-- Criando um container para os botões inferiores
+local bottomButtonsContainer = Instance.new("Frame")
+bottomButtonsContainer.Size = UDim2.new(1, 0, 0, 30)
+bottomButtonsContainer.Position = UDim2.new(0, 0, 0, 135)
+bottomButtonsContainer.BackgroundTransparency = 1
+bottomButtonsContainer.Parent = mainFrame
+
+-- Botão Hide Hub (parte inferior, lado esquerdo)
+local hideHubButton = Instance.new("TextButton")
+hideHubButton.Size = UDim2.new(0, 100, 0, 25)
+hideHubButton.Position = UDim2.new(0, 10, 0, 0)  -- Posição relativa ao container
+hideHubButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+hideHubButton.Text = "HIDE HUB"
+hideHubButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+hideHubButton.TextSize = 14
+hideHubButton.Font = Enum.Font.GothamSemibold
+hideHubButton.Parent = bottomButtonsContainer
+
+local hideGradient = Instance.new("UIGradient")
+hideGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(130, 40, 130)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(170, 90, 170))
+})
+hideGradient.Parent = hideHubButton
+
+local hideCorner = Instance.new("UICorner")
+hideCorner.CornerRadius = UDim.new(0, 6)
+hideCorner.Parent = hideHubButton
+
+-- Botão Discord (parte inferior, lado direito)
+local discordButton = Instance.new("TextButton")
+discordButton.Size = UDim2.new(0, 100, 0, 25)
+discordButton.Position = UDim2.new(0, 111, 0, 0)  -- Posição relativa ao container
+discordButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+discordButton.Text = "Discord"
+discordButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+discordButton.TextSize = 14
+discordButton.Font = Enum.Font.GothamSemibold
+discordButton.Parent = bottomButtonsContainer
+
+local discordGradient = Instance.new("UIGradient")
+discordGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 80, 120)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 120, 170))
+})
+discordGradient.Parent = discordButton
+
+local discordCorner = Instance.new("UICorner")
+discordCorner.CornerRadius = UDim.new(0, 6)
+discordCorner.Parent = discordButton
+
+
+-- Cria o botão flutuante ao clicar em "Floating Button"
+floatingButtonCreator.MouseButton1Click:Connect(function()
+    if not floatingButton then
+        print("Criando botão flutuante")  -- Debug
+        floatingButton = Instance.new("TextButton")
+        floatingButton.Size = UDim2.new(0, 100, 0, 30)
+        floatingButton.Position = UDim2.new(0.5, -50, 0.9, -40)
+        floatingButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        floatingButton.Text = autoJump and "Auto Jump ON" or "Auto Jump OFF"
+        floatingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        floatingButton.TextSize = 14
+        floatingButton.Font = Enum.Font.GothamSemibold
+        floatingButton.Parent = screenGui
+
+        local fbGradient = Instance.new("UIGradient")
+        fbGradient.Color = autoJump and
+            ColorSequence.new({
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 100)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 200, 100))
+            }) or
+            ColorSequence.new({
+                ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 0, 0)),
+                ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 80, 80))
+            })
+        fbGradient.Parent = floatingButton
+
+        local fbCorner = Instance.new("UICorner")
+        fbCorner.CornerRadius = UDim.new(0, 6)
+        fbCorner.Parent = floatingButton
+
+        -- Variáveis para controle de arrasto
+        local isDragging = false
+        local dragStartPos = nil
+        local buttonStartPos = nil
+        local moveThreshold = 5  -- pixels mínimos para considerar como arrasto
+
+        -- Eventos de mouse para arrastar e clicar
+        floatingButton.MouseButton1Down:Connect(function(x, y)
+            print("MouseButton1Down no botão flutuante")  -- Debug
+            isDragging = false  -- Começa como clique até mover além do threshold
+            dragStartPos = Vector2.new(x, y)
+            buttonStartPos = floatingButton.Position
+        end)
+
+        floatingButton.MouseMoved:Connect(function(x, y)
+            if dragStartPos then
+                local currentPos = Vector2.new(x, y)
+                local delta = currentPos - dragStartPos
+
+                -- Se moveu além do threshold, considera como arrasto
+                if not isDragging and (math.abs(delta.X) > moveThreshold or math.abs(delta.Y) > moveThreshold) then
+                    isDragging = true
+                end
+
+                if isDragging then
+                    floatingButton.Position = UDim2.new(
+                        buttonStartPos.X.Scale,
+                        buttonStartPos.X.Offset + delta.X,
+                        buttonStartPos.Y.Scale,
+                        buttonStartPos.Y.Offset + delta.Y
+                    )
+                end
+            end
+        end)
+
+        floatingButton.MouseButton1Up:Connect(function()
+            print("MouseButton1Up no botão flutuante")  -- Debug
+            if dragStartPos then
+                -- Se não entrou no modo de arrasto, considera como clique
+                if not isDragging then
+                    print("Clique detectado - chamando toggleAutoJump")  -- Debug
+                    toggleAutoJump()
+                end
+                dragStartPos = nil
+                buttonStartPos = nil
+            end
+        end)
+    end
+end)
+
+-- Tornar a hub arrastável
+local isDragging = false
+local dragStart, startPos = nil, nil
+titleBar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isDragging = true
+        dragStart = input.Position
+        startPos = mainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                isDragging = false
+            end
+        end)
+    end
+end)
+
+titleBar.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        if isDragging then
+            local delta = input.Position - dragStart
+            mainFrame.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end
+end)
+
+-- Funcionalidade de minimizar a hub (atualizada)
+local isMinimized = false
+local originalSize = mainFrame.Size
+minimizeButton.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    print("Minimizando hub:", isMinimized)  -- Debug
+
+
+    local elementsToToggle = {
+        statusButton,
+        keybindButton,
+        floatingButtonCreator,
+        bottomButtonsContainer  -- Agora controlamos o container inteiro
+    }
+
+    if isMinimized then
+        -- Primeiro esconde todos os elementos
+        for i, element in ipairs(elementsToToggle) do
+            if element then  -- Verifica se o elemento existe
+                print("Escondendo elemento", i)  -- Debug
+                element.Visible = false
+            end
+        end
+
+        -- Depois altera o tamanho da hub
+        mainFrame.Size = UDim2.new(0, 220, 0, 30)
+        minimizeButton.Text = "+"
+    else
+        -- Primeiro restaura o tamanho original
+        mainFrame.Size = originalSize
+        minimizeButton.Text = "-"
+
+        -- Depois mostra todos os elementos
+        for i, element in ipairs(elementsToToggle) do
+            if element then  -- Verifica se o elemento existe
+                print("Mostrando elemento", i)  -- Debug
+                element.Visible = true
+            end
+        end
+    end
+end)
+
+-- Tornar o botão de status clicável
+statusButton.MouseButton1Click:Connect(toggleAutoJump)
+
+-- Funcionalidade do Keybind
+local isSettingKeybind = false
+keybindButton.MouseButton1Click:Connect(function()
+    isSettingKeybind = true
+    keybindButton.Text = "PRESS ANY KEY..."
+end)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if isSettingKeybind and input.KeyCode and input.KeyCode.Name ~= "Unknown" then
+        keybind = input.KeyCode.Name
+        keybindButton.Text = "KEYBIND: " .. keybind
+        isSettingKeybind = false
+    elseif not gameProcessed and input.KeyCode == Enum.KeyCode[keybind] then
+        toggleAutoJump()
+    end
+end)
+
+-- Auto Jump: executa o pulo se ativado
+RunService.RenderStepped:Connect(function()
+    if autoJump and player.Character then
+        local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid and humanoid.FloorMaterial ~= Enum.Material.Air then
+            humanoid.Jump = true
+        end
+    end
+end)
+
+-- Criação do Confirmation Dialog (para o Hide Hub)
+local confirmDialog = Instance.new("Frame")
+confirmDialog.Size = UDim2.new(0, 250, 0, 130)
+confirmDialog.Position = UDim2.new(0.5, -125, 0.5, -65)
+confirmDialog.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+confirmDialog.BorderSizePixel = 0
+confirmDialog.Visible = false
+confirmDialog.Parent = screenGui
+local dialogCorner = Instance.new("UICorner")
+dialogCorner.CornerRadius = UDim.new(0, 10)
+dialogCorner.Parent = confirmDialog
+local dialogGradient = Instance.new("UIGradient")
+dialogGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 50, 50))
+})
+dialogGradient.Parent = confirmDialog
+local dialogText = Instance.new("TextLabel")
+dialogText.Size = UDim2.new(1, 0, 0, 50)
+dialogText.Position = UDim2.new(0, 0, 0, 10)
+dialogText.BackgroundTransparency = 1
+dialogText.Text = "Hide the Auto Jump Hub?"
+dialogText.TextColor3 = Color3.fromRGB(255, 255, 255)
+dialogText.TextSize = 18
+dialogText.Font = Enum.Font.GothamBold
+dialogText.Parent = confirmDialog
+local yesButton = Instance.new("TextButton")
+yesButton.Size = UDim2.new(0.4, 0, 0, 35)
+yesButton.Position = UDim2.new(0.08, 0, 0.6, 0)
+yesButton.BackgroundColor3 = Color3.fromRGB(40, 180, 40)
+yesButton.Text = "Yes"
+yesButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+yesButton.TextSize = 16
+yesButton.Font = Enum.Font.GothamSemibold
+yesButton.Parent = confirmDialog
+local yesCorner = Instance.new("UICorner")
+yesCorner.CornerRadius = UDim.new(0, 6)
+yesCorner.Parent = yesButton
+local noButton = Instance.new("TextButton")
+noButton.Size = UDim2.new(0.4, 0, 0, 35)
+noButton.Position = UDim2.new(0.52, 0, 0.6, 0)
+noButton.BackgroundColor3 = Color3.fromRGB(180, 40, 40)
+noButton.Text = "No"
+noButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+noButton.TextSize = 16
+noButton.Font = Enum.Font.GothamSemibold
+noButton.Parent = confirmDialog
+local noCorner = Instance.new("UICorner")
+noCorner.CornerRadius = UDim.new(0, 6)
+noCorner.Parent = noButton
+
+
+-- Conecta o Hide Hub para exibir o diálogo de confirmação
+hideHubButton.MouseButton1Click:Connect(function()
+    confirmDialog.Visible = true
+end)
+
+-- Mensagem minimalista "Link copied"
+local copiedMessage = Instance.new("TextLabel")
+copiedMessage.Size = UDim2.new(0, 120, 0, 30)
+copiedMessage.Position = UDim2.new(0.5, -60, 0.8, -40)
+copiedMessage.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+copiedMessage.Text = "Link copied"
+copiedMessage.TextColor3 = Color3.fromRGB(255, 255, 255)
+copiedMessage.TextSize = 14
+copiedMessage.Font = Enum.Font.GothamSemibold
+copiedMessage.Visible = false
+copiedMessage.Parent = screenGui
+local msgCorner = Instance.new("UICorner")
+msgCorner.CornerRadius = UDim.new(0, 6)
+msgCorner.Parent = copiedMessage
+local msgGradient = Instance.new("UIGradient")
+msgGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 80, 120)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 120, 170))
+})
+msgGradient.Parent = copiedMessage
+
+-- Funcionalidade do botão Discord: copia o link e exibe a mensagem
+discordButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/FA3eVAdtfw")
+    print("Link copiado para a área de transferência!")
+    copiedMessage.Visible = true
+    delay(2, function()
+        copiedMessage.Visible = false
+    end)
+end)
+
+-- Conecta os botões do diálogo de confirmação
+yesButton.MouseButton1Click:Connect(function()
+    confirmDialog.Visible = false
+    mainFrame.Visible = false
+end)
+
+noButton.MouseButton1Click:Connect(function()
+    confirmDialog.Visible = false
+end)`,
     views: "3.3K",
     timeAgo: "1 month ago",
     price: "Free",
