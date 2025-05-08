@@ -955,7 +955,7 @@ end)`,
     description: "Jump flick script for wall hopping movement",
     category: "Universal Script 🚀",
     code: `loadstring(game:HttpGet("https://raw.githubusercontent.com/lyraEz/lol/refs/heads/main/loaders/NewWallhop.lua"))()`,
-    views: "77.9K",
+    views: "101.3K",
     timeAgo: "7 months ago",
     price: "Free",
     image: "https://scriptblox.com/images/script/9952968-1726860980712.png"
